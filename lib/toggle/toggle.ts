@@ -7,10 +7,10 @@ export const TOGGLE_TOGGLE = 'basic/toggle/toggle';
 
 //Action creators and selectors
 export const toggle = {
-    show: (name:string) => ({type: TOGGLE_SHOW, name}),
-    hide: (name:string) => ({type: TOGGLE_HIDE, name}),
-    toggle: (name:string, defaultState:boolean = false) => ({type: TOGGLE_TOGGLE, name, defaultState}),
-    isVisible: (state:IToggleStateContainer, name:string, defaultState:boolean = false) => isVisible(state.basic.toggle, name, defaultState)
+    hide: (name:string):IToggleAction => ({type: TOGGLE_HIDE, name}),
+    isVisible: (state:IToggleStateContainer, name:string, defaultState:boolean = false):boolean => isVisible(state.basic.toggle, name, defaultState),
+    show: (name:string):IToggleAction => ({type: TOGGLE_SHOW, name}),
+    toggle: (name:string, defaultState:boolean = false):IToggleAction => ({type: TOGGLE_TOGGLE, name, defaultState}),
 }
 
 const isVisible = (state:IToggleState, name:string, defaultState:boolean = false):boolean => typeof state[name] !== 'undefined'
