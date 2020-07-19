@@ -3,12 +3,13 @@ export declare interface IToggleState {
 }
 
 export declare interface IToggleStateContainer {
-    basic: {
-        toggle: IToggleState;
+    basic?: {
+        toggle?: IToggleState;
     }
 }
 
 export declare interface IToggleAction {
     type: string;
     name: string;
+    defaultState?: boolean;
 }

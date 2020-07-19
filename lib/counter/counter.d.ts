@@ -3,8 +3,8 @@ export declare interface ICounterState {
 }
 
 export declare interface ICounterStateContainer {
-    basic: {
-        counter: ICounterState;
+    basic?: {
+        counter?: ICounterState;
     }
 }
 

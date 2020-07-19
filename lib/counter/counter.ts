@@ -11,18 +11,24 @@ export const counter = {
     decrement: (name:string, min:number = -9999999999999999):ICounterAction => ({type: COUNTER_DECREMENT, name, min}),
     increment: (name:string, max:number = 9999999999999999):ICounterAction => ({type: COUNTER_INCREMENT, name, max}),
     reset: (name:string, value = 0):ICounterAction => ({type: COUNTER_RESET, name, value}),
-    value: (state:ICounterStateContainer, name:string):number => state.basic.counter[name] || 0,
+    value: (state:ICounterStateContainer | undefined, name:string):number => getValue(state?.basic?.counter || {}, name),
 };
 
 const getValue = (state:ICounterState, name:string) => state[name] || 0;
 
 //Reducer
-export const counterReducer = (state:ICounterState = {}, action:ICounterAction) => ({
-    ...state,
-    [name]: switchOn(action.type, {
-        [COUNTER_INCREMENT]: () => getValue(state, name) + 1,
-        [COUNTER_DECREMENT]: () => getValue(state, name) - 1,
-        [COUNTER_RESET]: () => action.value || 0,
-        default: () => getValue(state, name),
-    }) || 0,
-})
+export const counterReducer = (state:ICounterState = {}, action:ICounterAction) => switchOn(action.type, {
+    [COUNTER_RESET]: () => ({
+        ...state,
+        [action.name]: action.value || 0,
+    }),
+    [COUNTER_INCREMENT]: () => ({
+        ...state,
+        [action.name]: getValue(state, action.name) + 1,
+    }),
+    [COUNTER_DECREMENT]: () => ({
+        ...state,
+        [action.name]: getValue(state, action.name) - 1,
+    }),
+    default: () => state,
+}) || {};
