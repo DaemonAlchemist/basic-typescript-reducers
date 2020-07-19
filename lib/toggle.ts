@@ -1,5 +1,20 @@
 import { switchOn } from 'ts-functional';
-import { IToggleAction, IToggleState, IToggleStateContainer } from "./toggle.d";
+
+export declare interface IToggleState {
+    [name:string]: boolean;
+}
+
+export declare interface IToggleStateContainer {
+    basic?: {
+        toggle?: IToggleState;
+    }
+}
+
+export declare interface IToggleAction {
+    type: string;
+    name: string;
+    defaultState?: boolean;
+}
 
 export const TOGGLE_SHOW = 'basic/toggle/show';
 export const TOGGLE_HIDE = 'basic/toggle/hide';

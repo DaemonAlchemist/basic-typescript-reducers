@@ -1,10 +1,27 @@
 import {switchOn} from 'ts-functional';
-import {ICounterAction, ICounterState, ICounterStateContainer} from "./counter.d";
 
 //Action type definitions
 export const COUNTER_RESET      = 'basic/counter/reset';
 export const COUNTER_INCREMENT  = 'basic/counter/increment';
 export const COUNTER_DECREMENT  = 'basic/counter/decrement';
+
+export declare interface ICounterState {
+    [name:string]: number;
+}
+
+export declare interface ICounterStateContainer {
+    basic?: {
+        counter?: ICounterState;
+    }
+}
+
+export declare interface ICounterAction {
+    type: string;
+    name: string;
+    min?: number;
+    max?: number;
+    value?: number;
+}
 
 //Action creators and selectors
 export const counter = {

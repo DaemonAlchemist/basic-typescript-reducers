@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.counter = exports.toggle = exports.basicReducers = void 0;
 var redux_1 = require("redux");
-var toggle_1 = require("./toggle/toggle");
+var toggle_1 = require("./toggle");
 Object.defineProperty(exports, "toggle", { enumerable: true, get: function () { return toggle_1.toggle; } });
-var counter_1 = require("./counter/counter");
+var counter_1 = require("./counter");
 Object.defineProperty(exports, "counter", { enumerable: true, get: function () { return counter_1.counter; } });
 exports.basicReducers = {
     basic: redux_1.combineReducers({

@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import { toggle, toggleReducer } from './toggle/toggle';
-import { counter, counterReducer } from './counter/counter';
+import { toggle, toggleReducer } from './toggle';
+import { counter, counterReducer } from './counter';
 
 export const basicReducers = {
     basic: combineReducers({

@@ -1,11 +1,11 @@
-import { toggle } from './toggle/toggle';
-import { counter } from './counter/counter';
+import { toggle } from './toggle';
+import { counter } from './counter';
 export declare const basicReducers: {
     basic: import("redux").Reducer<import("redux").CombinedState<{
-        toggle: import("./toggle/toggle").IToggleState;
+        toggle: import("./toggle").IToggleState;
         counter: {
             [x: string]: number;
         };
-    }>, import("./toggle/toggle").IToggleAction | import("./counter/counter").ICounterAction>;
+    }>, import("./counter").ICounterAction | import("./toggle").IToggleAction>;
 };
 export { toggle, counter };
