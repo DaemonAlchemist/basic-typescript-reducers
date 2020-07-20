@@ -1,6 +1,6 @@
 {
   "name": "basic-typescript-reducers",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A set of basic typed reducers",
   "main": "dist/index.js",
   "scripts": {
