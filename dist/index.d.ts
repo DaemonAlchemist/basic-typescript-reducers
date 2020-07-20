@@ -1,5 +1,6 @@
-import { toggle } from './toggle';
 import { counter } from './counter';
+import { set, sets } from "./set";
+import { toggle } from './toggle';
 export declare const basicReducers: {
     basic: import("redux").Reducer<import("redux").CombinedState<{
         toggle: import("./toggle").IToggleState;
@@ -8,4 +9,4 @@ export declare const basicReducers: {
         };
     }>, import("./counter").ICounterAction | import("./toggle").IToggleAction>;
 };
-export { toggle, counter };
+export { toggle, counter, set, sets };

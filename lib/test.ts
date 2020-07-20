@@ -1,14 +1,23 @@
 import { combineReducers } from 'redux';
-import { basicReducers, counter, toggle } from './index';
+import { basicReducers, counter, set, toggle } from './index';
+import { sets } from "./set";
+
+const numberSet = set<number>("numberSet");
+const stringSet = set<string>("stringSet");
 
 const reducer = combineReducers({
     ...basicReducers,
+    ...sets(numberSet, stringSet),
 });
 
 const init = {
     basic: {
         toggle: {},
         counter: {},
+    },
+    sets: {
+        numberSet: undefined,
+        stringSet: undefined,
     },
 };
 
@@ -127,4 +136,54 @@ describe('basic-typescript-reducers', () => {
             expect(counter.value(state, 'test4')).toEqual(123);
         });
     });
+    describe('set', () => {
+        it('should produce an empty array for non-existent sets', () => {
+            expect(numberSet.values(init)).toEqual([]);
+        });
+        it('should add members to a set', () => {
+            const state = [
+                numberSet.add(1),
+                numberSet.add(2),
+                numberSet.add(3),
+                numberSet.add(1),
+            ].reduce(reducer, init);
+
+            const numbers:number[] = numberSet.values(state);
+            expect(numbers.length).toEqual(3);
+            expect(numbers.includes(1)).toBeTruthy();
+            expect(numbers.includes(2)).toBeTruthy();
+            expect(numbers.includes(3)).toBeTruthy();
+        });
+        it('should remove members to a set', () => {
+            const state = [
+                numberSet.add(1),
+                numberSet.add(2),
+                numberSet.add(3),
+                numberSet.remove(1),
+            ].reduce(reducer, init);
+
+            const numbers:number[] = numberSet.values(state);
+            expect(numbers.length).toEqual(2);
+            expect(numbers.includes(1)).toBeFalsy();
+            expect(numbers.includes(2)).toBeTruthy();
+            expect(numbers.includes(3)).toBeTruthy();
+        });
+        it('should not affect other sets', () => {
+            const state = [
+                numberSet.add(1),
+                numberSet.add(2),
+                stringSet.add("test"),
+                stringSet.add("test2"),
+            ].reduce(reducer, init);
+
+            const numbers:number[] = numberSet.values(state);
+            const strings:string[] = stringSet.values(state);
+            expect(numbers.length).toEqual(2);
+            expect(strings.length).toEqual(2);
+            expect(numbers.includes(1)).toBeTruthy();
+            expect(numbers.includes(2)).toBeTruthy();
+            expect(strings.includes("test")).toBeTruthy();
+            expect(strings.includes("test2")).toBeTruthy();
+        });
+    })
 });
